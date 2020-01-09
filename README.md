@@ -3,9 +3,9 @@
 ## Linear algebra 
 
 ### 1. Vectors
-       - Operations - Plus, Minus, Scalar Multiply
-       - Magnitude and Direction
-       - Inner products: Dot product and Angle calculation
-       - Parallelism and Orthogonality
-       - Projections
+       * Operations - Plus, Minus, Scalar Multiply
+       * Magnitude and Direction
+       * Inner products: Dot product and Angle calculation
+       * Parallelism and Orthogonality
+       * Projections
     
