@@ -1,1 +1,4 @@
-# My learning path on Artificial Intelligence
+# What I did so far
+
+Linear algebra 
+  1. Vectors
