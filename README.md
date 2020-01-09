@@ -1,1 +1,1 @@
-# AI_learning_path
+# My learning path on Artificial Intelligence
