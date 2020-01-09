@@ -9,3 +9,4 @@ Linear algebra
     1.3. Inner products: Dot product and Angle calculation
     1.4. Parallelism and Orthogonality
     1.5 Projections
+    
