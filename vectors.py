@@ -3,6 +3,7 @@ import math
 
 class Vector():
     def __init__(self, *coordinates):
+        #Define vector
         try:
             if not coordinates:
                 raise ValueError
@@ -14,11 +15,13 @@ class Vector():
             raise TypeError('Coordonatele trebuie sa fie iterabile!')
 
     def plus (self, other): 
+        #1.1. Add two vectors
         new_coordinates = [x+y for x,y in zip(self.coordinates, other.coordinates)]
         new_coordinates = ['%.3f' % n for n in new_coordinates]
         return Vector(new_coordinates)
     
     def times_scalar(self,c):
+        #1.1. Scalar multiplication
         return (tuple(c*x for x in self.coordinates))
             
     
@@ -31,20 +34,24 @@ class Vector():
     '''
 
     def magnitude(self):
+        #1.2. Calculate the length of the vector
         coordinates_squared = (x**2 for x in self.coordinates)
         return math.sqrt(sum(coordinates_squared))
     
     def normalize(self):
+        #1.2. Get the unity vector
         try:
             magnitude = self.magnitude()
             return self.times_scalar(1./magnitude)
         except ZeroDivisionError:
             raise Exception('Eroare: nu pot imparti la 0')
 
-    def dot (self, other): 
+    def dot (self, other):
+        #1.3. Calculate Dot Product 
         return sum([x*y for x,y in zip(self.coordinates, other.coordinates)])
        
     def angle(self, other, in_degrees=False):
+        #1.3. Calculate the Angle between vectors
         dot = self.dot(other)
         magnitude_v1 = self.magnitude()
         magnitude_v2 = other.magnitude()
@@ -57,12 +64,15 @@ class Vector():
             return angle_in_redians
 
     def is_zero(self, tolerance = 1e-10):
+        #1.4. Check if the vector length is zero
         return self.magnitude() < tolerance
 
     def is_parallel_to(self, other):
+        #1.4. Verify parallelism
         return (self.is_zero() or other.is_zero() or self.angle(other) == 0 or self.angle(other) == math.pi)
     
     def is_orthogonal_to(self, other, tolerance=1e-10):
+        ##1.4. Verify orthogonality
         return abs(self.dot(other)) < tolerance
         
 
