@@ -6,8 +6,9 @@ class Vector():
         #Define vector
         self.coordinates = coordinates
 
-    def __str_(self):
-        return '{}'.format(self.coordinates)
+    def get_vector(self):
+       # return '{}'.format(self.coordinates) 
+       return self.coordinates
 
     def plus (self, other): 
         #1.1. Add vectors
@@ -17,7 +18,7 @@ class Vector():
     
     def times_scalar(self,c):
         #1.1. Scalar multiplication
-        return Vector((c*x for x in self.coordinates))    
+        return Vector(c*x for x in self.coordinates)    
     
     def magnitude(self):
         #1.2. Calculate the length of the vector
@@ -75,8 +76,8 @@ class Vector():
 v = Vector(3.039, 1.879)
 w = Vector(0.825, 2.036)
 c = 2
-print("Vector: ", v)
-print ("Plus: ", v.plus(w))
+print("Vector: ", v.get_vector())
+print ("Plus: ", v.plus(w).get_vector())
 print ("Times scalar:", v.times_scalar(c))
 print ('Magnitude', w.magnitude())
 print("Normalize: ", w.normalize())
