@@ -81,10 +81,26 @@ class Vector():
         projection = self.parallel_component(other)
         return self.minus(projection)
 
+    def cross(self,other):
+        #1.6. Cross products between vectors
+        [x1, y1, z1] = self.coordinates
+        [x2, y2, z2] = other.coordinates
+        new_coordinates = [y1*z2 - y2*z1, -(x1*z2 - x2*z1), x1*y2 - x2*y1]
+        return Vector(*new_coordinates)
+
+    def parallelogram_area(self, other):
+        #1.6. Calculate area of a parallelogram
+        return self.cross(other).magnitude()
+
+    def triangle_area(self, other):
+        #1.6. Calculate area of a parallelogram
+        return self.cross(other).magnitude()/2
+        
+
     
 
-v = Vector(3.009, -6.172, 3.692, -2.51)
-w = Vector(6.404, -9.144, 2.759, 8.718)
+v = Vector(1.5, 9.547, 3.691)
+w = Vector(-6.007, 0.124, 5.772)
 c = 2
 print("Vector: ", v.get_vector())
 print ("Plus: ", v.plus(w).get_vector())
@@ -99,3 +115,6 @@ print ('Is parallel: ', v.is_parallel_to(w))
 print ('Is orthogonal: ', v.is_orthogonal_to(w))
 print ("Parallel component: ", v.parallel_component(w).get_vector())
 print ("Orthogonal component: ", v.orthogonal_component(w).get_vector())
+print ("Cross product: ", v.cross(w).get_vector())
+print ("Parallelogram area: ", v.parallelogram_area(w))
+print ("Triangle area: ", v.triangle_area(w))
