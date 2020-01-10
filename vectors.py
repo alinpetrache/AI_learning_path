@@ -5,7 +5,7 @@ class Vector():
     def __init__(self, *coordinates):
         #Define vector
         self.coordinates = coordinates
-
+        
     def get_vector(self):
        # return '{}'.format(self.coordinates) 
        return self.coordinates
@@ -13,12 +13,17 @@ class Vector():
     def plus (self, other): 
         #1.1. Add vectors
         new_coordinates = [x+y for x,y in zip(self.coordinates, other.coordinates)]
-        #new_coordinates = ['%.3f' % n for n in new_coordinates]
-        return Vector(new_coordinates)
-    
+        return Vector(*new_coordinates)
+
+    def minus (self, other): 
+        #1.1. Substract vectors
+        new_coordinates = [x-y for x,y in zip(self.coordinates, other.coordinates)]
+        return Vector(*new_coordinates)
+
     def times_scalar(self,c):
         #1.1. Scalar multiplication
-        return Vector(c*x for x in self.coordinates)    
+        new_coordinates = [c*x for x in self.coordinates]
+        return Vector(*new_coordinates)   
     
     def magnitude(self):
         #1.2. Calculate the length of the vector
@@ -28,8 +33,8 @@ class Vector():
     def normalize(self):
         #1.2. Get the unity vector
         try:
-            magnitude = self.magnitude()
-            return Vector(self.times_scalar(1./magnitude))
+            magnitude = self.magnitude() 
+            return self.times_scalar(1./magnitude)
         except ZeroDivisionError:
             raise Exception('Cannot normalize the zero vector')
 
@@ -65,33 +70,32 @@ class Vector():
         ##1.4. Verify orthogonality
         return abs(self.dot(other)) < tolerance
     
-    def projection(self, basis):
+    def parallel_component(self, basis):
         #1.5. Calculate projection of a vector on another one
         u = basis.normalize()
-        weight = self.dot(basis) 
-        return u
-        
+        weight = self.dot(u) 
+        return u.times_scalar(weight) 
+    
+    def orthogonal_component(self, other):
+        #1.5. Calculate the orthogonal component of a vector on another 
+        projection = self.parallel_component(other)
+        return self.minus(projection)
 
+    
 
-v = Vector(3.039, 1.879)
-w = Vector(0.825, 2.036)
+v = Vector(3.009, -6.172, 3.692, -2.51)
+w = Vector(6.404, -9.144, 2.759, 8.718)
 c = 2
 print("Vector: ", v.get_vector())
 print ("Plus: ", v.plus(w).get_vector())
-print ("Times scalar:", v.times_scalar(c))
+print ("Minus: ", v.minus(w).get_vector())
+print ("Times scalar:", v.times_scalar(c).get_vector())
 print ('Magnitude', w.magnitude())
-print("Normalize: ", w.normalize())
+print("Normalize: ", w.normalize().get_vector())
 print ('Dot product: ', v.dot(w))
 print ('Angle (radian): ', v.angle(w))
 print ('Angle (degrees): ', v.angle(w, in_degrees=True))
 print ('Is parallel: ', v.is_parallel_to(w))
 print ('Is orthogonal: ', v.is_orthogonal_to(w))
-print ("Projection: ", v.projection(w))
-
-
-
-
-
-
-
-
+print ("Parallel component: ", v.parallel_component(w).get_vector())
+print ("Orthogonal component: ", v.orthogonal_component(w).get_vector())
