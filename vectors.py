@@ -1,24 +1,23 @@
-import numpy as np
+#Python 3
 import math
 
 class Vector():
     def __init__(self, *coordinates):
         #Define vector
         self.coordinates = coordinates
-        
-    def get_vector(self):
-       # return '{}'.format(self.coordinates) 
-       return self.coordinates
+
+    def __str_(self):
+        return '{}'.format(self.coordinates)
 
     def plus (self, other): 
         #1.1. Add vectors
         new_coordinates = [x+y for x,y in zip(self.coordinates, other.coordinates)]
         #new_coordinates = ['%.3f' % n for n in new_coordinates]
-        return tuple(new_coordinates)
+        return Vector(new_coordinates)
     
     def times_scalar(self,c):
         #1.1. Scalar multiplication
-        return (tuple(c*x for x in self.coordinates))    
+        return Vector((c*x for x in self.coordinates))    
     
     def magnitude(self):
         #1.2. Calculate the length of the vector
@@ -29,7 +28,7 @@ class Vector():
         #1.2. Get the unity vector
         try:
             magnitude = self.magnitude()
-            return self.times_scalar(1./magnitude)
+            return Vector(self.times_scalar(1./magnitude))
         except ZeroDivisionError:
             raise Exception('Cannot normalize the zero vector')
 
@@ -68,15 +67,15 @@ class Vector():
     def projection(self, basis):
         #1.5. Calculate projection of a vector on another one
         u = basis.normalize()
-        weight = self.dot(u) 
-        return u.times_scalar(weight)  
+        weight = self.dot(basis) 
+        return u
         
 
 
 v = Vector(3.039, 1.879)
 w = Vector(0.825, 2.036)
 c = 2
-print("Vector: ", v.get_vector())
+print("Vector: ", v)
 print ("Plus: ", v.plus(w))
 print ("Times scalar:", v.times_scalar(c))
 print ('Magnitude', w.magnitude())
